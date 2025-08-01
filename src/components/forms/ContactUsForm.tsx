@@ -2,7 +2,7 @@ import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+// import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import Profile from "../../icons/Profile";
@@ -41,7 +41,7 @@ export default function ContactForm() {
     resolver: zodResolver(contactSchema),
   });
 
-  const [captchaValue, setCaptchaValue] = useState<string | null>(null);
+  // const [captchaValue, setCaptchaValue] = useState<string | null>(null);
 
   const options = [
     { value: "category1", label: "دسته بندی 1" },
@@ -53,7 +53,7 @@ export default function ContactForm() {
     mutationFn: submitContactForm,
     onSuccess: () => {
       reset();
-      setCaptchaValue(null);
+      // setCaptchaValue(null);
     },
   });
 
@@ -183,9 +183,9 @@ export default function ContactForm() {
       <div className="mt-6 flex md:flex-row flex-col items-center justify-between gap-5">
         <ReCAPTCHA
           sitekey={SITE_KEY}
-          onChange={(value) => {
-            setCaptchaValue(value);
-          }}
+          // onChange={(value) => {
+          // setCaptchaValue(value);
+          // }}
         />
         <input type="hidden" />
         <button
