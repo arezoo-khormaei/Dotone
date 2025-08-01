@@ -31,7 +31,10 @@ export default function HomeBlogCard(props: IHomeBlogCardProps) {
         {tags && (
           <div className="flex justify-start items-center gap-3 mb-6 relative z-20">
             {tags?.map((tag) => (
-              <div className="bg-white text-black rounded-[10px] text-center min-w-[50px] h-[26px] text-xs font-extralight px-4 py-3 flex items-center justify-center">
+              <div
+                key={tag}
+                className="bg-white text-black rounded-[10px] text-center min-w-[50px] h-[26px] text-xs font-extralight px-4 py-3 flex items-center justify-center"
+              >
                 {tag}
               </div>
             ))}

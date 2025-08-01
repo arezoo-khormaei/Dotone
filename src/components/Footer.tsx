@@ -121,8 +121,11 @@ export default function Footer() {
   return (
     <div className="md:px-28 md:pb-14 p-7">
       <div className="w-full md:flex grid grid-cols-3 md:justify-center justify-between items-center md:gap-[220px] my-11">
-        {info.map((item) => (
-          <div className="flex flex-col gap-2 justify-center items-center col-span-1 text-center">
+        {info.map((item, index) => (
+          <div
+            key={index}
+            className="flex flex-col gap-2 justify-center items-center col-span-1 text-center"
+          >
             <img src={item.image} className="md:w-10 w-6 md:h-10 h-6" />
             <p className="text-xs md:text-lg">{item.text}</p>
           </div>
@@ -130,12 +133,12 @@ export default function Footer() {
       </div>
 
       <div className="md:flex grid grid-cols-2 justify-center items-center md:gap-[220px] gap-12 my-16">
-        {footerLinks.map((item) => (
-          <div className="flex flex-col justify-center items-start">
+        {footerLinks.map((item, index) => (
+          <div key={index} className="flex flex-col justify-center items-start">
             <h4 className="font-semibold">{item.title}</h4>
             <ul>
-              {item.links.map((link) => (
-                <li className="my-1 text-[15px]">
+              {item.links.map((link, index) => (
+                <li key={index} className="my-1 text-[15px]">
                   <a href={link.linkTo}>{link.label}</a>
                 </li>
               ))}

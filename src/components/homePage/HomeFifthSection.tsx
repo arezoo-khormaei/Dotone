@@ -78,6 +78,7 @@ export default function HomeFifthSection() {
         <div className="h-full overflow-y-scroll px-4 py-1" dir="ltr">
           {companyCategories?.map((categ, index) => (
             <div
+              key={index}
               className={`w-full ${
                 index !== companyCategories.length - 1 && "mb-24"
               }`}
@@ -93,8 +94,11 @@ export default function HomeFifthSection() {
                 </button>
               </div>
               <div className="grid md:grid-cols-3 grid-cols-1 gap-3 mt-4">
-                {categ?.childrenCompanies?.map((company) => (
-                  <div className="bg-white rounded-3xl p-6 col-span-1 h-[306px] flex flex-col justify-center items-center">
+                {categ?.childrenCompanies?.map((company, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-3xl p-6 col-span-1 h-[306px] flex flex-col justify-center items-center"
+                  >
                     <img src="/test-logo.svg" alt="" />
                     <p className="text-sm text-justify">{company.decription}</p>
                   </div>

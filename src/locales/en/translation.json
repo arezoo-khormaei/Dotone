@@ -2,7 +2,29 @@
   "home": "Home",
   "about": "About Us",
   "blog": "Blog",
-  "companies": "Companies",
+  "companies": "Companies Introduction",
   "contact_us": "Contact Us",
-  "careers": "Careers"
+  "contact_us_desc": "Get in touch with us.",
+  "contact_us_desc2": "Conversation is the beginning of every connection.\nIf you have a question, want to know more about us, or have an idea in mind, we would be happy to hear from you.",
+  "careers": "Job Opportunities",
+  "one_group": "One\nValue-Creating Group",
+  "explantation1": "One is an economic value-creating group (Avan) that, through smart investment and wise organization, provides the necessary infrastructure for prosperity and widespread benefit, so that active and diligent people find the opportunity to grow and thrive. The One Value-Creating Group is a forward-looking organization with the slogan 'Comfort for Everyone' playing a central role in key fields such as transportation, financial services, investment, entrepreneurship, international trade development, media, technology, and communications.",
+  "explantation2": "Value of Life is our compass at One, and every activity aims at value creation and adding value to today's world; because we believe:\n'Tomorrow is the child of today.'",
+  "companies_classification": "Companies Classification",
+  "blog_content": "Our Blog Content",
+  "contact_us_form": {
+    "name": "Name",
+    "company_name": "Company Name",
+    "category": "Category",
+    "choose_category": "Choose a category...",
+    "phone_number": "Phone Number",
+    "email": "Email",
+    "wrong_email": "Invalid email address.",
+    "request": "Request",
+    "write_your_request": "Write your request...",
+    "required_field": "This field is required.",
+    "success_message": "Information sent successfully."
+  },
+  "send": "Send",
+  "sending": "Sending"
 }

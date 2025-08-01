@@ -13,6 +13,9 @@ import Category from "../../icons/Category";
 
 import { CustomSelect } from "../select/CustomSelect";
 
+import { useMutation } from "@tanstack/react-query";
+import { submitContactForm } from "../../api/contact";
+
 const SITE_KEY = "your-site-key-from-google";
 
 export default function ContactForm() {
@@ -24,9 +27,6 @@ export default function ContactForm() {
     phone: z.string().min(1, t("contact_us_form.required_field")),
     email: z.string().email(t("contact_us_form.wrong_email")),
     request: z.string().min(1, t("contact_us_form.required_field")),
-    captcha: z.boolean().refine((val) => val === true, {
-      message: "You must confirm you're not a robot",
-    }),
   });
 
   type ContactFormData = z.infer<typeof contactSchema>;
@@ -37,8 +37,7 @@ export default function ContactForm() {
     control,
     formState: { errors },
     reset,
-    setValue,
-  } = useForm<ContactFormData>({
+  } = useForm({
     resolver: zodResolver(contactSchema),
   });
 
@@ -50,14 +49,16 @@ export default function ContactForm() {
     { value: "category3", label: "دسته بندی 3" },
   ];
 
-  const onSubmit = (data: ContactFormData) => {
-    if (!captchaValue) {
-      setValue("captcha", false);
-      return;
-    }
+  const { mutate, isPending, isSuccess, isError } = useMutation({
+    mutationFn: submitContactForm,
+    onSuccess: () => {
+      reset();
+      setCaptchaValue(null);
+    },
+  });
 
-    console.log(data);
-    reset();
+  const onSubmit = (data: ContactFormData) => {
+    mutate(data);
   };
 
   return (
@@ -184,20 +185,29 @@ export default function ContactForm() {
           sitekey={SITE_KEY}
           onChange={(value) => {
             setCaptchaValue(value);
-            setValue("captcha", !!value);
           }}
         />
-        <input type="hidden" {...register("captcha")} />
+        <input type="hidden" />
         <button
           type="submit"
-          className="bg-black text-white text-sm font-extralight rounded-xl md:px-11 px-8 py-[10px]"
+          disabled={isPending}
+          className="bg-black disabled:bg-gray-400 text-white text-sm font-extralight rounded-xl md:px-11 px-8 py-[10px]"
         >
-          {t("send")}
+          {isPending ? t("sending") : t("send")}
         </button>
       </div>
-      {errors.captcha && (
-        <p className="text-red-500 text-sm">{errors.captcha.message}</p>
-      )}
+      <div className="w-full text-center">
+        {isSuccess && (
+          <p className="text-green-600 text-sm">
+            {t("contact_us_form.success_message")}
+          </p>
+        )}
+        {isError && (
+          <p className="text-red-500 text-sm">
+            {t("contact_us_form.error_message")}
+          </p>
+        )}
+      </div>
     </form>
   );
 }
