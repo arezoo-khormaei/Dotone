@@ -1,20 +1,25 @@
-const Request = (props: { fill?: string; width?: number; height?: number }) => (
+const Request = (props: {
+  className?: string;
+  width?: number;
+  height?: number;
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={props.width ?? "18"}
     height={props.height ?? "18"}
     fill="none"
     viewBox="0 0 18 18"
+    className={props.className}
   >
     <path
-      stroke={props.fill ?? "#9F9F9F"}
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeMiterlimit="10"
       d="M1.5 6.375c0-2.625 1.5-3.75 3.75-3.75h7.5c2.25 0 3.75 1.125 3.75 3.75v5.25c0 2.625-1.5 3.75-3.75 3.75h-7.5"
     ></path>
     <path
-      stroke={props.fill ?? "#9F9F9F"}
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeMiterlimit="10"

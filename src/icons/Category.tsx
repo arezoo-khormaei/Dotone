@@ -1,13 +1,14 @@
-const Category = (props: { fill?: string }) => (
+const Category = (props: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="18"
     height="18"
     fill="none"
     viewBox="0 0 18 18"
+    className={props.className}
   >
     <path
-      stroke={props.fill ?? "#9F9F9F"}
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeMiterlimit="10"

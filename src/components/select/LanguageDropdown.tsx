@@ -47,47 +47,52 @@ export default function LanguageDropdown({
     <DropdownMenu.Root open={open} onOpenChange={setOpen}>
       <DropdownMenu.Trigger asChild>
         <button
-          className={`outline-none min-w-[6rem] inline-flex items-center justify-center gap-1 border bg-white px-3 py-2 text-base font-medium text-black shadow transition ${
+          className={`outline-none min-w-[6rem] inline-flex items-center justify-center gap-1 border bg-white px-3 py-2 text-base font-medium text-black shadow transition-all duration-1000 ${
             open ? "rounded-t-xl border-gray-300" : "rounded-xl border-gray-300"
           }`}
           aria-label="Change language"
         >
           {currentLang?.short || "??"}
           <ChevronDownIcon
-            className={`h-5 w-5 transition-transform ${
-              open ? "rotate-180" : ""
+            className={`h-5 w-5 transition-all duration-700 mr-2 ${
+              open ? "-scale-y-100" : ""
             }`}
           />
         </button>
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        {open && (
-          <DropdownMenu.Content
-            side="bottom"
-            align="center"
-            sideOffset={-1}
-            className="z-50 min-w-[6rem] rounded-b-xl border border-t-0 border-gray-300 bg-white shadow animate-in fade-in slide-in-from-top-1 duration-300"
-          >
-            <div className="h-px bg-gray-200 mx-2" />
+        <DropdownMenu.Content
+          side="bottom"
+          align="center"
+          sideOffset={-1}
+          className={`
+              overflow-hidden
+              max-h-0
+              opacity-0
+              z-50 min-w-[6rem] rounded-b-xl border border-t-0 border-gray-300 bg-white shadow
+              data-[state=open]:animate-revealDown
+              data-[state=closed]:animate-hideUp
+            `}
+        >
+          <div className="h-px bg-gray-200 mx-2" />
 
-            <div className="flex justify-between px-3 py-2 text-sm text-black bg-gray-50">
-              <span>{currentLang?.label}</span>
-              <span>{currentLang?.short}</span>
-            </div>
+          <div className="flex justify-between px-3 py-2 text-sm text-black bg-gray-50">
+            <span>{currentLang?.label}</span>
+            <span>{currentLang?.short}</span>
+          </div>
 
-            {otherLanguages.map((lang) => (
-              <DropdownMenu.Item
-                key={lang.code}
-                onSelect={() => handleSelect(lang.code)}
-                className="flex justify-between cursor-pointer select-none px-3 py-2 text-sm text-black hover:bg-gray-100 focus:outline-none"
-              >
-                <span>{lang.label}</span>
-                <span>{lang.short}</span>
-              </DropdownMenu.Item>
-            ))}
-          </DropdownMenu.Content>
-        )}
+          {otherLanguages.map((lang) => (
+            <DropdownMenu.Item
+              key={lang.code}
+              onSelect={() => handleSelect(lang.code)}
+              className="flex justify-between cursor-pointer select-none px-3 py-2 text-sm text-black hover:bg-gray-100 focus:outline-none"
+            >
+              <span>{lang.label}</span>
+              <span>{lang.short}</span>
+            </DropdownMenu.Item>
+          ))}
+        </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
   );

@@ -23,9 +23,7 @@ export default function HomeBlogCard(props: IHomeBlogCardProps) {
       ${showMore ? "pt-16 pb-10 px-6" : "p-4"}
      rounded-3xl grid h-[260px] relative overflow-hidden ${
        size === "lg" ? "grid-cols-7" : "grid-cols-3"
-     }
-     hover:scale-105 hover:shadow-lg transition-all ease-in-out duration-500
-    `}
+     }`}
     >
       <div className={`${size === "lg" ? "col-span-4" : "col-span-2"}`}>
         {tags && (
@@ -43,7 +41,7 @@ export default function HomeBlogCard(props: IHomeBlogCardProps) {
         <h4
           className={`${theme !== "dark" ? "text-black" : "text-white"}
           ${showMore && "mr-6"}
-           md:text-lg text-sm mb-3 font-semibold whitespace-pre`}
+           lg:text-lg text-sm mb-3 font-semibold whitespace-pre`}
         >
           {title}
         </h4>
@@ -51,7 +49,7 @@ export default function HomeBlogCard(props: IHomeBlogCardProps) {
           <p
             className={`${
               theme !== "dark" ? "text-black" : "text-white"
-            } md:text-[15px] text-xs font-extralight leading-6 text-justify`}
+            } lg:text-[15px] text-xs font-extralight leading-6 text-justify`}
           >
             {description}
           </p>
@@ -94,8 +92,8 @@ export default function HomeBlogCard(props: IHomeBlogCardProps) {
           className={`absolute z-0 rounded-2xl
                  ${
                    size === "lg"
-                     ? "left-5 bottom-1/2 translate-y-1/2 md:w-[320px] w-[200px] md:h-[calc(100%-32px)] h-[calc(100%-50px)] md:[mask-image:linear-gradient(to_right,black_40%,transparent_80%)] [mask-image:linear-gradient(to_right,black_20%,transparent_80%)]"
-                     : "bottom-5 left-1/2 -translate-x-1/2 md:w-[calc(100%-32px)] w-[calc(100%-42px)] md:h-[150px] h-[120px] [mask-image:linear-gradient(to_bottom,transparent_10%,black_80%)]"
+                     ? "left-5 bottom-1/2 translate-y-1/2 lg:w-[320px] w-[200px] lg:h-[calc(100%-32px)] h-[calc(100%-50px)] lg:[mask-image:linear-gradient(to_right,black_40%,transparent_80%)] [mask-image:linear-gradient(to_right,black_20%,transparent_80%)]"
+                     : "bottom-5 left-1/2 -translate-x-1/2 lg:w-[calc(100%-32px)] w-[calc(100%-42px)] lg:h-[150px] h-[120px] [mask-image:linear-gradient(to_bottom,transparent_10%,black_80%)]"
                  }`}
         >
           <img

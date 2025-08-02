@@ -1,4 +1,5 @@
 import FooterReservedRights from "./FooterReservedRights";
+import { motion } from "framer-motion";
 
 export default function Footer() {
   const info = [
@@ -119,22 +120,36 @@ export default function Footer() {
     },
   ];
   return (
-    <div className="md:px-28 md:pb-14 p-7">
-      <div className="w-full md:flex grid grid-cols-3 md:justify-center justify-between items-center md:gap-[220px] my-11">
+    <motion.div
+      initial={{ opacity: 0, y: 250 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.1 }}
+      className="lg:px-28 lg:pb-14 p-7 relative"
+    >
+      <img
+        src="/logo-black.svg"
+        className="absolute -top-32 left-1/2 -translate-x-1/2 lg:w-[197px] w-[150px] lg:h-[147px] h-[100px]"
+      />
+
+      <div className="w-full lg:flex grid grid-cols-3 lg:justify-center justify-between items-center lg:gap-[220px] gap-3 my-11">
         {info.map((item, index) => (
           <div
             key={index}
             className="flex flex-col gap-2 justify-center items-center col-span-1 text-center"
           >
-            <img src={item.image} className="md:w-10 w-6 md:h-10 h-6" />
-            <p className="text-xs md:text-lg">{item.text}</p>
+            <img src={item.image} className="lg:w-10 w-6 lg:h-10 h-6" />
+            <p className="text-xs md:text-sm xl:text-lg">{item.text}</p>
           </div>
         ))}
       </div>
 
-      <div className="md:flex grid grid-cols-2 justify-center items-center md:gap-[220px] gap-12 my-16">
+      <div className="lg:flex grid grid-cols-2 justify-center items-center lg:gap-[220px] gap-12 my-16">
         {footerLinks.map((item, index) => (
-          <div key={index} className="flex flex-col justify-center items-start">
+          <div
+            key={index}
+            className="flex flex-col justify-center lg:items-start items-center text-nowrap xl:text-base text-sm"
+          >
             <h4 className="font-semibold">{item.title}</h4>
             <ul>
               {item.links.map((link, index) => (
@@ -148,6 +163,6 @@ export default function Footer() {
       </div>
 
       <FooterReservedRights />
-    </div>
+    </motion.div>
   );
 }

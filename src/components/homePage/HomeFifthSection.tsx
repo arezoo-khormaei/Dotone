@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Divider from "../Divider";
 import type { ICompanyCategories } from "../../types/generalTypes";
+import { motion } from "framer-motion";
 
 export default function HomeFifthSection() {
   const { t } = useTranslation();
@@ -68,12 +69,23 @@ export default function HomeFifthSection() {
     },
   ];
   return (
-    <div className="md:px-16 p-7 md:py-12 py-4 grid grid-cols-4 md:gap-20">
-      <div className="md:col-span-1 md:block hidden">
+    <div className="lg:px-16 p-7 lg:py-12 py-4 grid grid-cols-4 lg:gap-20">
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.3 }}
+        className="lg:col-span-1 lg:block hidden"
+      >
         <img src="/tower.svg" className="h-[976px]" />
-      </div>
-      <div
-        className={`md:col-span-3 col-span-4 rounded-[40px] bg-gray-100 py-10 pl-7 pr-2 h-[976px]`}
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.3 }}
+        className={`lg:col-span-3 col-span-4 rounded-[40px] bg-gray-100 py-10 pl-7 pr-2 h-[976px]`}
       >
         <div className="h-full overflow-y-scroll px-4 py-1" dir="ltr">
           {companyCategories?.map((categ, index) => (
@@ -86,14 +98,14 @@ export default function HomeFifthSection() {
             >
               <Divider title={t("companies")} className="mb-4" />
               <div className="flex justify-between items-center">
-                <h3 className="md:text-[28px] text-2xl mb-4">
+                <h3 className="lg:text-[28px] text-2xl mb-4">
                   {categ.categoryTitle}
                 </h3>
                 <button>
                   <img src="/icons/arrowLeft.svg" />
                 </button>
               </div>
-              <div className="grid md:grid-cols-3 grid-cols-1 gap-3 mt-4">
+              <div className="grid lg:grid-cols-3 grid-cols-1 gap-3 mt-4">
                 {categ?.childrenCompanies?.map((company, index) => (
                   <div
                     key={index}
@@ -107,7 +119,7 @@ export default function HomeFifthSection() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

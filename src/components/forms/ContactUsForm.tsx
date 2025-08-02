@@ -2,7 +2,6 @@ import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
-// import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import Profile from "../../icons/Profile";
@@ -15,6 +14,8 @@ import { CustomSelect } from "../select/CustomSelect";
 
 import { useMutation } from "@tanstack/react-query";
 import { submitContactForm } from "../../api/contact";
+import { useRef } from "react";
+import { FocusableInput, FocusableTextarea } from "../inputs/FocusableInput";
 
 const SITE_KEY = "your-site-key-from-google";
 
@@ -44,9 +45,9 @@ export default function ContactForm() {
   // const [captchaValue, setCaptchaValue] = useState<string | null>(null);
 
   const options = [
-    { value: "category1", label: "دسته بندی 1" },
-    { value: "category2", label: "دسته بندی 2" },
-    { value: "category3", label: "دسته بندی 3" },
+    { value: "category1", label: "موقعیت شغلی" },
+    { value: "category2", label: "ایده و طرح" },
+    { value: "category3", label: "انتقادات و پیشنهادات" },
   ];
 
   const { mutate, isPending, isSuccess, isError } = useMutation({
@@ -61,10 +62,12 @@ export default function ContactForm() {
     mutate(data);
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-gray-100 rounded-3xl py-8 px-9 space-y-6 w-full max-w-2xl"
+      className="bg-gray-100 rounded-3xl xl:py-8 xl:px-9 md:p-5 p-4 space-y-6 w-full"
     >
       <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
         {/* Name */}
@@ -72,19 +75,19 @@ export default function ContactForm() {
           <label htmlFor="name" className="text-sm font-light">
             {t("contact_us_form.name")}/{t("contact_us_form.company_name")}:
           </label>
-          <div className="flex items-center rounded-lg p-2 bg-white">
-            <Profile />
-            <div className="w-px h-3 bg-gray-300 mx-2" />
-            <input
+          <div className="group flex items-center rounded-[10px] p-2 bg-white focus-within:border-black focus-within:ring-1 focus-within:ring-black transition">
+            <Profile className="text-gray-400 group-focus-within:text-black transition-colors duration-300" />
+            <div className="w-px h-3 mx-2 bg-gray-300 transition-colors duration-300 group-focus-within:bg-black" />
+            <FocusableInput
               id="name"
-              type="text"
-              placeholder={t("contact_us_form.name")}
               {...register("name")}
-              className="w-full outline-none text-sm font-extralight"
+              placeholder={t("contact_us_form.name")}
+              placeholderOnFocus="ا..."
+              className="w-full outline-none text-sm font-extralight focus:placeholder-black placeholder:text-xs xl:placeholder:text-base"
             />
           </div>
           {errors.name && (
-            <p className="text-red-500 text-sm">{errors.name.message}</p>
+            <p className="text-red-500 text-xs">{errors.name.message}</p>
           )}
         </div>
 
@@ -93,15 +96,16 @@ export default function ContactForm() {
           <label htmlFor="category" className="text-sm font-light">
             {t("contact_us_form.category")}:
           </label>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center p-2 rounded-lg bg-white w-full">
-              <Category />
-              <div className="w-px h-3 bg-gray-300 mx-2" />
+          <div className="group flex items-center rounded-[10px] bg-white focus-within:border-black focus-within:ring-1 focus-within:ring-black transition">
+            <div ref={containerRef} className="flex items-center p-2 w-full">
+              <Category className="text-gray-400 group-focus-within:text-black transition-colors duration-300" />
+              <div className="w-px h-3 bg-gray-300 mx-2 transition-colors duration-300 group-focus-within:bg-black" />
               <Controller
                 name="category"
                 control={control}
                 render={({ field, fieldState }) => (
                   <CustomSelect
+                    containerRef={containerRef}
                     value={field.value}
                     onChange={field.onChange}
                     options={options}
@@ -113,7 +117,7 @@ export default function ContactForm() {
             </div>
           </div>
           {errors.category && (
-            <p className="text-red-500 text-sm">{errors.category.message}</p>
+            <p className="text-red-500 text-xs">{errors.category.message}</p>
           )}
         </div>
 
@@ -122,18 +126,19 @@ export default function ContactForm() {
           <label htmlFor="phone" className="text-sm font-light">
             {t("contact_us_form.phone_number")}:
           </label>
-          <div className="flex items-center rounded-lg p-2 bg-white">
-            <Call />
-            <div className="w-px h-3 bg-gray-300 mx-2" />
-            <input
+          <div className="group flex items-center rounded-[10px] p-2 bg-white focus-within:border-black focus-within:ring-1 focus-within:ring-black transition">
+            <Call className="text-gray-400 group-focus-within:text-black transition-colors duration-300" />
+            <div className="w-px h-3 mx-2 bg-gray-300 transition-colors duration-300 group-focus-within:bg-black" />
+            <FocusableInput
               id="phone"
               {...register("phone")}
               placeholder={t("contact_us_form.phone_number")}
-              className="w-full outline-none text-sm font-extralight"
+              className="w-full outline-none text-sm font-extralight focus:placeholder-black placeholder:text-xs xl:placeholder:text-base"
+              placeholderOnFocus="ا..."
             />
           </div>
           {errors.phone && (
-            <p className="text-red-500 text-sm">{errors.phone.message}</p>
+            <p className="text-red-500 text-xs">{errors.phone.message}</p>
           )}
         </div>
 
@@ -142,19 +147,20 @@ export default function ContactForm() {
           <label htmlFor="email" className="text-sm font-light">
             {t("contact_us_form.email")}:
           </label>
-          <div className="flex items-center rounded-lg p-2 bg-white">
-            <Mail />
-            <div className="w-px h-3 bg-gray-300 mx-2" />
-            <input
+          <div className="group flex items-center rounded-[10px] p-2 bg-white focus-within:border-black focus-within:ring-1 focus-within:ring-black transition">
+            <Mail className="text-gray-400 group-focus-within:text-black transition-colors duration-300" />
+            <div className="w-px h-3 mx-2 bg-gray-300 transition-colors duration-300 group-focus-within:bg-black" />
+            <FocusableInput
               id="email"
               type="email"
               {...register("email")}
               placeholder={t("contact_us_form.email")}
-              className="w-full outline-none text-sm font-extralight"
+              className="w-full outline-none text-sm font-extralight focus:placeholder-black placeholder:text-xs xl:placeholder:text-base"
+              placeholderOnFocus="ا..."
             />
           </div>
           {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
+            <p className="text-red-500 text-xs">{errors.email.message}</p>
           )}
         </div>
       </div>
@@ -164,18 +170,19 @@ export default function ContactForm() {
         <label htmlFor="request" className="text-sm font-light">
           {t("contact_us_form.request")}:
         </label>
-        <div className="flex items-start rounded-lg p-3 bg-white">
-          <Request />
-          <div className="w-px h-3 bg-gray-300 mx-2" />
-          <textarea
+        <div className="group flex items-start rounded-[10px] p-3 bg-white focus-within:border-black focus-within:ring-1 focus-within:ring-black transition">
+          <Request className="text-gray-400 group-focus-within:text-black transition-colors duration-300" />
+          <div className="w-px h-3 bg-gray-300 mx-2 transition-colors duration-300 group-focus-within:bg-black" />
+          <FocusableTextarea
             id="request"
             {...register("request")}
             placeholder={t("contact_us_form.write_your_request")}
-            className="resize-none h-32 w-full outline-none text-sm font-extralight"
+            className="resize-none h-32 w-full outline-none text-sm font-extralight focus:placeholder-black placeholder:text-xs xl:placeholder:text-base"
+            placeholderOnFocus="ا..."
           />
         </div>
         {errors.request && (
-          <p className="text-red-500 text-sm">{errors.request.message}</p>
+          <p className="text-red-500 text-xs">{errors.request.message}</p>
         )}
       </div>
 
@@ -183,9 +190,8 @@ export default function ContactForm() {
       <div className="mt-6 flex md:flex-row flex-col items-center justify-between gap-5">
         <ReCAPTCHA
           sitekey={SITE_KEY}
-          // onChange={(value) => {
-          // setCaptchaValue(value);
-          // }}
+          className="w-[50px] xl:scale-[0.9] scale-[0.7]"
+          size="normal"
         />
         <input type="hidden" />
         <button
@@ -203,7 +209,7 @@ export default function ContactForm() {
           </p>
         )}
         {isError && (
-          <p className="text-red-500 text-sm">
+          <p className="text-red-500 text-xs">
             {t("contact_us_form.error_message")}
           </p>
         )}

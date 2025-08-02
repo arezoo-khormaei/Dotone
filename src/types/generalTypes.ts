@@ -1,3 +1,5 @@
+import type { ReactElement } from "react";
+
 export interface IMenuItem {
   id: number;
   label: string;
@@ -40,6 +42,6 @@ export interface ICompanyCategories {
 }
 
 export interface ISocialMedias {
-  icon: string;
+  icon: ReactElement;
   linkTo: string;
 }
